@@ -1,0 +1,222 @@
+definitions:
+  models.Club:
+    properties:
+      created_at:
+        type: string
+      established:
+        type: integer
+      id:
+        type: string
+      name:
+        type: string
+      stadium:
+        type: string
+    type: object
+  models.CreateClub:
+    properties:
+      established:
+        type: integer
+      id:
+        type: string
+      name:
+        type: string
+      stadium:
+        type: string
+    type: object
+  models.GetAllClub:
+    properties:
+      clubs:
+        items:
+          $ref: '#/definitions/models.Club'
+        type: array
+      count:
+        type: integer
+    type: object
+  response.ErrorResp:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /club:
+    get:
+      consumes:
+      - application/json
+      description: get clubs
+      parameters:
+      - default: 10
+        description: limit for response
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - default: 1
+        description: page of req
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllClub'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+      summary: List clubs
+      tags:
+      - clubs
+    post:
+      consumes:
+      - application/json
+      description: api for create club
+      parameters:
+      - description: date of club
+        in: body
+        name: club
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateClub'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+      summary: create club
+      tags:
+      - clubs
+  /club/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: api fot delete clubes
+      parameters:
+      - description: id of club
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: strig
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+      summary: delete club
+      tags:
+      - clubs
+    get:
+      consumes:
+      - application/json
+      description: get clubs
+      parameters:
+      - description: id of club
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Club'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+      summary: get club
+      tags:
+      - clubs
+    put:
+      consumes:
+      - application/json
+      description: api fot update clubs
+      parameters:
+      - description: id of club
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: id of club
+        in: body
+        name: club
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateClub'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: strig
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResp'
+      summary: updateda club
+      tags:
+      - clubs
+swagger: "2.0"
